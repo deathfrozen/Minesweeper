@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gameAreaControl1 = new Minesweeper.GameAreaControl(cells, gameArea.CheckMarkedAndOpenAdjacentCells);
+            this.gameAreaControl1 = new Minesweeper.GameAreaControl(settings, cells, gameArea.CheckMarkedAndOpenAdjacentCells);
             this.SuspendLayout();
             // 
             // gameAreaControl1

@@ -3,6 +3,7 @@ using System.Linq;
 using System.ComponentModel;
 using System.Drawing;
 using System.Collections.Generic;
+using Minesweeper.Properties;
 namespace Minesweeper
 {
     public interface IArea
@@ -17,9 +18,11 @@ namespace Minesweeper
     {
         MyList<CellView> Cells { get; }
         IMinesweeper game;
-        public GameArea(IMinesweeper game)
+        Settings settings;
+        internal GameArea(Settings settings, IMinesweeper game)
         {
             Cells = new MyList<CellView>();
+            this.settings = settings;
             this.game = game;
         }
         public void ExplodeAllMines()
@@ -32,14 +35,14 @@ namespace Minesweeper
         }
         public bool CheckAllFreeCellOpen()
         {
-            return Cells.Where(c => c.IsOpen).Count() == (Settings.WidthArea * Settings.HeightArea) - Settings.MinesArea;
+            return Cells.Where(c => c.IsOpen).Count() == (settings.WidthArea * settings.HeightArea) - settings.MinesArea;
         }
         public MyList<CellView> GenerateGrid()
         {
             Cells.Clear();
             List<CellView> cells = new List<CellView>();
-            for (int widthIterator = 0; widthIterator < Settings.WidthArea; widthIterator++) {
-                for (int heightIterator = 0; heightIterator < Settings.HeightArea; heightIterator++) {
+            for (int widthIterator = 0; widthIterator < settings.WidthArea; widthIterator++) {
+                for (int heightIterator = 0; heightIterator < settings.HeightArea; heightIterator++) {
                     Point currentCellPosition = new Point(widthIterator, heightIterator);
                     CellView cell = new CellView() {
                         IsMine = game.CheckMine(currentCellPosition),
@@ -95,7 +98,7 @@ namespace Minesweeper
         {
             for (int iteratorX = -1; iteratorX <= 1; iteratorX++) {
                 for (int iteratorY = -1; iteratorY <= 1; iteratorY++) {
-                    if (position.X + iteratorX >= 0 && position.X + iteratorX < Settings.WidthArea && position.Y + iteratorY >= 0 && position.Y + iteratorY < Settings.HeightArea) {
+                    if (position.X + iteratorX >= 0 && position.X + iteratorX < settings.WidthArea && position.Y + iteratorY >= 0 && position.Y + iteratorY < settings.HeightArea) {
                         action(new Point(position.X + iteratorX, position.Y + iteratorY));
                     }
                 }

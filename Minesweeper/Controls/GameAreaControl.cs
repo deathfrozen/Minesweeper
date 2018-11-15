@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Minesweeper.Properties;
 
 namespace Minesweeper
 {
@@ -8,9 +9,11 @@ namespace Minesweeper
     {
         MyList<CellView> Cells { get; set; }
         Action<Point> checkMarkedAndOpenAdjacentCells;
-        public GameAreaControl(MyList<CellView> cells, Action<Point> checkMarkedAndOpenAdjacentCells)
+        Settings settings;
+        internal GameAreaControl(Settings settings, MyList<CellView> cells, Action<Point> checkMarkedAndOpenAdjacentCells)
         {
             DoubleBuffered = true;
+            this.settings = settings;
             this.checkMarkedAndOpenAdjacentCells = checkMarkedAndOpenAdjacentCells;
             Cells = cells;
             Cells_ListChanged(Cells, null);
@@ -22,7 +25,7 @@ namespace Minesweeper
         {
             Controls.Clear();
             foreach(CellView item in Cells) {
-                CellControl cell = new CellControl(checkMarkedAndOpenAdjacentCells);
+                CellControl cell = new CellControl(settings, checkMarkedAndOpenAdjacentCells);
                 cell.DataBindings.Add(nameof(CellControl.Position), item, nameof(CellView.Position), false, DataSourceUpdateMode.OnPropertyChanged);
                 cell.DataBindings.Add(nameof(CellControl.AdjacentMines), item, nameof(CellView.AdjacentMines), false, DataSourceUpdateMode.OnPropertyChanged);
                 cell.DataBindings.Add(nameof(CellControl.IsExplode), item, nameof(CellView.IsExplode), false, DataSourceUpdateMode.OnPropertyChanged);

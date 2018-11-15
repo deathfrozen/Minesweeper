@@ -23,15 +23,39 @@ namespace Minesweeper.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsMark {
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public int MinesArea {
             get {
-                return ((bool)(this["IsMark"]));
+                return ((int)(this["MinesArea"]));
             }
-            set {
-                this["IsMark"] = value;
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int WidthArea {
+            get {
+                return ((int)(this["WidthArea"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int HeightArea {
+            get {
+                return ((int)(this["HeightArea"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public int CellSize {
+            get {
+                return ((int)(this["CellSize"]));
             }
         }
     }

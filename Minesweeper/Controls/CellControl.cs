@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Minesweeper.Properties;
 
 namespace Minesweeper
 {
@@ -37,8 +38,10 @@ namespace Minesweeper
         public bool IsMine { get; set; }
         public int AdjacentMines { get; set; }
         Action<Point> checkMarkedAndOpenAdjacentCells;
-        public CellControl(Action<Point> checkMarkedAndOpenAdjacentCells)
+        Settings settings;
+        internal CellControl(Settings settings, Action<Point> checkMarkedAndOpenAdjacentCells)
         {
+            this.settings = settings;
             this.checkMarkedAndOpenAdjacentCells = checkMarkedAndOpenAdjacentCells;
             InitializeComponent();
         }
@@ -68,8 +71,8 @@ namespace Minesweeper
         }
         protected override void OnPaint(PaintEventArgs e)
         {
-            Location = new Point(Position.X * Settings.CellSize, Position.Y * Settings.CellSize);
-            Size = new Size(Settings.CellSize, Settings.CellSize);
+            Location = new Point(Position.X * settings.CellSize, Position.Y * settings.CellSize);
+            Size = new Size(settings.CellSize, settings.CellSize);
             if (IsExplode) {
                 e.Graphics.DrawString("*", new Font("Arial", 12, FontStyle.Regular), new SolidBrush(Color.Black), new PointF(4, 3));
             }

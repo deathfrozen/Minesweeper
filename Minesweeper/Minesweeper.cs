@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+using Minesweeper.Properties;
 
 namespace Minesweeper
 {
@@ -21,9 +22,11 @@ namespace Minesweeper
         public Action<Func<MyList<CellView>>> VictoryAction { get; set; }
         bool gameOverProcess = false;
         IArea gameArea;
-        public MinesweeperGame()
+        Settings settings;
+        internal MinesweeperGame(Settings settings)
         {
             Mines = new List<int>();
+            this.settings = settings;
         }
         public MyList<CellView> StartNewGame(IArea area)
         {
@@ -64,8 +67,8 @@ namespace Minesweeper
         {
             Mines.Clear();
             Random random = new Random();
-            while (Mines.Count < Settings.MinesArea) {
-                int minePosition = random.Next(1, Settings.WidthArea * Settings.HeightArea);
+            while (Mines.Count < settings.MinesArea) {
+                int minePosition = random.Next(1, settings.WidthArea * settings.HeightArea);
                 if (!Mines.Any(m => m == minePosition)) {
                     Mines.Add(minePosition);
                 }
@@ -73,7 +76,7 @@ namespace Minesweeper
         }
         public bool CheckMine(Point position)
         {
-            return Mines.Any(m => m == position.X + (position.Y * Settings.WidthArea));
+            return Mines.Any(m => m == position.X + (position.Y * settings.WidthArea));
         }
     }
 }
